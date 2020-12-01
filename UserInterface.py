@@ -12,7 +12,7 @@ from tkinter import ttk
 from pandastable import Table, TableModel
 import pandas as pd
 
-from Corpus import full_corpus
+from Corpus import corpus_list
 from CalculationFunctions import score_to_data
 import visuals as vis
 
@@ -80,7 +80,7 @@ class StartPage(tk.Frame):
         rep_label = ttk.Label(self, text="Select Repertoire")
         rep_label.grid(row=1, column=0)
         rep = tk.StringVar()
-        rep_select = ttk.OptionMenu(self, rep, *full_corpus)
+        rep_select = ttk.OptionMenu(self, rep, *corpus_list)
         rep_select.grid(row=1, column=1, columnspan=3, sticky="we", pady=20)
              
         

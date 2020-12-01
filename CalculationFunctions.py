@@ -1,39 +1,9 @@
 
-from music21 import stream, note, pitch, chord, meter, corpus, converter
+from music21 import stream, note, pitch, chord, meter
 import numpy as np
 
 import Corpus
 from dftArrayClass import dft_array
-
-
-def parse_score(score_string, measure_nums=None):
-    # if score_string in Corpus.music21_corpus:
-    #     working_score = corpus.parse(score_string)
-    if score_string in Corpus.mozSQs:
-        working_score = converter.parse(Corpus.my_corpus+Corpus.moz+score_string)
-    elif score_string in Corpus.harbs:
-        working_score = converter.parse(Corpus.my_corpus+Corpus.harb+score_string)
-    elif score_string in Corpus.mess_misc:
-        working_score = converter.parse(Corpus.my_corpus+Corpus.mess+score_string)
-    # elif score_string in Corpus.meis:
-    #     working_score = converter.parse(Corpus.my_corpus+Corpus.mei+score_string)
-    # elif score_string in Corpus.tests:
-    #     working_score = converter.parse(Corpus.my_corpus+Corpus.test+score_string)
-    # elif score_string in Corpus.elvis_corpus:
-    #     working_score = converter.parse(Corpus.my_corpus+Corpus.elvis+score_string)
-    elif score_string in Corpus.micros:
-        working_score = converter.parse(Corpus.my_corpus+Corpus.micro+score_string)
-    if score_string in Corpus.CRIM:
-        working_score = converter.parse(Corpus.CRIM_corpus + score_string)
-    
-    if measure_nums == (0, 0):
-        return working_score
-    else:
-        return working_score.measures(measure_nums[0], measure_nums[1])
-    # if measure_nums:
-    #     return working_score.measures(measure_nums[0], measure_nums[1])
-    # else:
-    #     return working_score
 
 
 def split_time_signature(numerator):
@@ -183,7 +153,7 @@ def score_to_data(config):
     """
      
     repertoire, excerpt, measures, window, strat, log, edo = config
-    parsed_score = parse_score(score_string=repertoire, measure_nums=measures)
+    parsed_score = Corpus.parse_score(score_string=repertoire, measure_nums=measures)
     beat_offset_list = get_beat_offsets_from_score(score=parsed_score.parts[0])
 
     if strat == "Duration" or strat == "Flat":
