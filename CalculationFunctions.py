@@ -45,16 +45,8 @@ def get_beat_offsets_from_score(score):
     
     return offset_list
 
-def micro_pcs(note_):
-    if 'half' not in note_.pitch.fullName:
-        return note_.pitch.pitchClass
-    elif 'half-sharp' in note_.pitch.fullName:
-        return note_.pitch.pitchClass + 0.5
-    elif 'half-flat' in note_.pitch.fullName:
-        return note_.pitch.pitchClass - 0.5
 
-
-def update_array(array, note_, strategy, edo):
+def update_array(array, note_, strategy, edo=12):
     if edo == 12:
         if strategy == 'Onset':
             array[note_.pitch.pitchClass] += 1
@@ -62,14 +54,6 @@ def update_array(array, note_, strategy, edo):
             array[note_.pitch.pitchClass] += note_.quarterLength
         elif strategy == 'Flat':
             array[note_.pitch.pitchClass] = 1
-        return array 
-    elif edo == 24:
-        if strategy == 'Onset':
-            array[int(micro_pcs(note_) * 2)] += 1
-        elif strategy == 'Duration':
-            array[int(micro_pcs(note_) * 2)] += note_.quarterLength
-        elif strategy == 'Flat':
-            array[int(micro_pcs(note_) * 2)] = 1
         return array 
         
     

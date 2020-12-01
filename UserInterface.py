@@ -130,23 +130,23 @@ class StartPage(tk.Frame):
         log_select = tk.Checkbutton(self, text="Use Log Weighting \n (Recommended)", variable=log)
         log_select.grid(row=6, column=1, pady=20)
         
-        def edo_callback(var, indx, mode):
-            global EDO
-            print("EDO changed to {}".format(edo.get()))
-            EDO = edo.get()
+        # def edo_callback(var, indx, mode):
+        #     global EDO
+        #     print("EDO changed to {}".format(edo.get()))
+        #     EDO = edo.get()
         
-        edo_label = tk.Label(self, text="EDO")
-        edo_label.grid(row=7, column=0)
-        edo = tk.IntVar()
-        edo.set(12)
-        edo.trace_add(mode='write', callback=edo_callback)
-        edo_select = tk.OptionMenu(self, edo, 12, 24)
-        edo_select.grid(row=7, column=1)
+        # edo_label = tk.Label(self, text="EDO")
+        # edo_label.grid(row=7, column=0)
+        # edo = tk.IntVar()
+        # edo.set(12)
+        # edo.trace_add(mode='write', callback=edo_callback)
+        # edo_select = tk.OptionMenu(self, edo, 12, 24)
+        # edo_select.grid(row=7, column=1)
  
 
         def calculate_dft():
             global master_df
-            global EDO
+            # global EDO
             
             config = {
                 "Repertoire": rep.get(),
@@ -155,11 +155,11 @@ class StartPage(tk.Frame):
                 "Window Size": win_size.get(),
                 "Strategy": strat.get(),
                 "Log Weighting": log.get(),
-                "EDO" : EDO
+                # "EDO" : EDO
             }
             score_data = score_to_data(config.values())
-            master_df = vis.make_dataframes(score_data=score_data, edo=EDO)
-            print(f'The EDO in use is {EDO}')
+            master_df = vis.make_dataframes(score_data=score_data, edo=12)
+            # print(f'The EDO in use is {EDO}')
 
             
         calculate = ttk.Button(self, text="Calculate", command=calculate_dft)
@@ -192,10 +192,10 @@ class DataPage(tk.Frame):
         
         
         def update_options():
-            global EDO
+            # global EDO
             graph_menu['menu'].delete(0, 'end')
             self.graph_options = ["Magnitudes"]
-            for i in range(1, EDO//2 + 1):
+            for i in range(1, 12 + 1):
                 self.graph_options.append(f'f{i}')
             graph.set(self.graph_options[0])
             for g in self.graph_options:
@@ -232,13 +232,13 @@ class DataPage(tk.Frame):
         
     def make_graph(self, canvas, sub, left, right):
         global master_df
-        global EDO
+        # global EDO
         sub.clear()
         left.clear()
         right.clear()
         
         if self.var == 0:
-            for i in range(1, EDO//2 +1):
+            for i in range(1, 12 + 1):
                 left.stackplot(range(len(master_df[f'f{i} Magnitude'])), 
                         master_df[f'f{i} Magnitude'], 
                         # color=vis.xkcd_colors[f'f{i}_colors'][0],
@@ -319,7 +319,7 @@ class DataPage(tk.Frame):
         
     def make_data(self, table):
         global master_df
-        global EDO
+        # global EDO
         table.clearTable()
         
         df = table.model.df
@@ -327,7 +327,7 @@ class DataPage(tk.Frame):
         df['Measures'] = master_df['Measure Range']
         df['Array'] = master_df['Original Array']
         if self.var == 0:
-            for i in range(0, EDO//2 + 1):
+            for i in range(0, 12 + 1):
                 df[f'| f{i} |'] = master_df[f'f{i} Magnitude']
             pd.set_option('display.max_colwidth', 40)
             
@@ -361,9 +361,9 @@ class PhaseComparisonPage(tk.Frame):
         
         
         def update_options():
-            global EDO
+            # global EDO
             self.graph_options.clear()
-            for i in range(1, EDO//2 + 1):
+            for i in range(1, 12 + 1):
                 self.graph_options.append(f'f{i} Phase')
             for v in var_list:
                 v.set(self.graph_options[0])
