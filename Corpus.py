@@ -5,7 +5,7 @@ from music21 import converter
 #%%
 demo_corpus = {'Harbison, Four Songs of Solitude, Movement 1' : 'Scores/HarbisonFourSongsofSolitude1.xml', 
                'Messiaen, Theme and Variations, Theme' : 'Scores/MessiaenT&V_Theme.xml', 
-               'Mozart, K. 157, Movement 1, Exposition' : 'Scores/Mozart157_expo.xml', 
+               'Mozart, K. 157, Movement 1, Exposition' : 'Scores/MozartK157_expo.xml', 
                'Mozart, K. 465 (Dissonance), Movement 1, Exposition' : 'Scores/MozartK465_expo.xml'}
 #%%
 corpus_list = [x for x in demo_corpus.keys()]
