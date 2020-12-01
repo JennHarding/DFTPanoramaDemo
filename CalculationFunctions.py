@@ -7,6 +7,14 @@ from dftArrayClass import dft_array
 
 
 def split_time_signature(numerator):
+    """This is used to break down irregular time signatures (13/8, 11/4, etc.). It breaks the numerator of the time signature down into a combination of 3's and 2's. A numerator of 11 will return [3, 3, 3, 2], while a numerator of 5 will return [3, 2].
+
+    Args:
+        numerator (int): The top number in a time signature
+
+    Returns:
+        list: List of integers (only 3's and 2's) that sum to the original numerator
+    """
     if numerator < 4:
         return [numerator]
     elif numerator == 4:
@@ -56,18 +64,7 @@ def update_array(array, note_, strategy, edo=12):
             array[note_.pitch.pitchClass] = 1
         return array 
         
-    
-        
-# def update_array(array, note_, strategy):
-#     if strategy == 'Onset':
-#         array[note_.pitch.pitchClass] += 1
-#     elif strategy == 'Duration':
-#         array[note_.pitch.pitchClass] += note_.quarterLength
-#     elif strategy == 'Flat':
-#         array[note_.pitch.pitchClass] = 1
-#     return array
-
-
+         
 def get_measure_number(score, offset):
     beat_measure_tuple = score.beatAndMeasureFromOffset(offset)
     measure_number = beat_measure_tuple[1].number
@@ -136,8 +133,8 @@ def score_to_data(config):
         list: list of dft_array objects that represent pcsets that have had the DFT applied. Each dft_array represents the DFT of the pc content of one sliding window.
     """
      
-    repertoire, excerpt, measures, window, strat, log, edo = config
-    parsed_score = Corpus.parse_score(score_string=repertoire, measure_nums=measures)
+    repertoire, measures, window, strat, log = config
+    parsed_score = Corpus.parse_score(score_name=repertoire, measure_nums=measures)
     beat_offset_list = get_beat_offsets_from_score(score=parsed_score.parts[0])
 
     if strat == "Duration" or strat == "Flat":
@@ -150,7 +147,6 @@ def score_to_data(config):
         beat_offset_list=beat_offset_list, 
         window_size=window, 
         strategy=strat, 
-        log=log,
-        edo=edo)
+        log=log)
 
     return multisets

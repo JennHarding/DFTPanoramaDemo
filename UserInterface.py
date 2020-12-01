@@ -150,7 +150,7 @@ class StartPage(tk.Frame):
             
             config = {
                 "Repertoire": rep.get(),
-                "Excerpt": exc.get(),
+                # "Excerpt": exc.get(),
                 "Excerpt Measures": (beg.get(), end.get()),
                 "Window Size": win_size.get(),
                 "Strategy": strat.get(),
