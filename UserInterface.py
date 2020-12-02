@@ -13,7 +13,7 @@ from pandastable import Table, TableModel
 # import pandas as pd
 from pandas import DataFrame, set_option
 
-from Corpus import corpus_list
+from CorpusManagement import corpus_list
 from CalculationFunctions import score_to_data
 import Visuals as vis
 
@@ -37,9 +37,9 @@ class PanoramaGenerator(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
         
         menubar = tk.Menu(container)
-        filemenu = tk.Menu(menubar, tearoff=0)
-        filemenu.add_command(label="Exit", command=quit)
-        menubar.add_cascade(label="File", menu=filemenu)
+        # filemenu = tk.Menu(menubar, tearoff=0)
+        # filemenu.add_command(label="Exit", command=quit)
+        # menubar.add_cascade(label="File", menu=filemenu)
         
         goto_menu = tk.Menu(menubar, tearoff=1)
         goto_menu.add_command(label="Home", command=lambda: self.show_frame(StartPage))
@@ -336,8 +336,8 @@ class MasterDataFrame(tk.Frame):
     
 
 app = PanoramaGenerator()
-app.geometry("1024x768")
-app.mainloop()
+# app.geometry("1024x768")
+# app.mainloop()
 
 
 

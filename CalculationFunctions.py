@@ -2,7 +2,7 @@
 from music21 import stream, note, pitch, chord, meter
 from numpy import array
 
-import Corpus
+from CorpusManagement import parse_score
 from dftArrayClass import dft_array
 
 
@@ -134,7 +134,7 @@ def score_to_data(config):
     """
      
     repertoire, measures, window, strat, log = config
-    parsed_score = Corpus.parse_score(score_name=repertoire, measure_nums=measures)
+    parsed_score = parse_score(score_name=repertoire, measure_nums=measures)
     beat_offset_list = get_beat_offsets_from_score(score=parsed_score.parts[0])
 
     if strat == "Duration" or strat == "Flat":
