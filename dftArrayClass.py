@@ -1,4 +1,4 @@
-import numpy as np
+from numpy import log2, fft, absolute, around, angle
 
 
 class dft_array(object):
@@ -22,19 +22,19 @@ class dft_array(object):
     
     def do_dft(self):
         if self.log_weight is True:
-            return np.fft.fft(np.log2(self.original_array + 1))
+            return fft.fft(log2(self.original_array + 1))
         else:
-            return np.fft.fft(self.original_array)
+            return fft.fft(self.original_array)
     
     def mag_dict(self):
-        return {f'f{i}' : np.abs(self.do_dft())[i] for i in range(0, self.edo//2 + 1)}
+        return {f'f{i}' : absolute(self.do_dft())[i] for i in range(0, self.edo//2 + 1)}
     
     def phase_dict(self):
-        return {f'f{i}' : int(np.around(np.angle(self.do_dft(), deg=True)[i])) for i in range(1, self.edo//2 + 1)}
+        return {f'f{i}' : int(around(angle(self.do_dft(), deg=True)[i])) for i in range(1, self.edo//2 + 1)}
     
     def rounded_weighted_array(self):
-        return np.around(np.log2(self.original_array + 1), decimals=2)
+        return around(log2(self.original_array + 1), decimals=2)
     
     def rounded_original_array(self):
-        return np.around(self.original_array, decimals=2)
+        return around(self.original_array, decimals=2)
     

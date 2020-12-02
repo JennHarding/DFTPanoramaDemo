@@ -1,7 +1,5 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-from matplotlib.figure import Figure
-import numpy as np
+from pandas import DataFrame
+from numpy import around
 
 
 rgb_colors = {'f1_colors' : ['rgba(130,202,252,0.4)', 'rgba(06,130,219,0.6)', 'rgba(03,71,119,1)'], 
@@ -34,7 +32,7 @@ xkcd_colors = {'f1_colors' : ['xkcd:sky', 'xkcd:lightish blue', 'xkcd:cobalt'],
 
 def quantize_array(array, quant=12):
     spacing = 360/quant
-    q = np.around(array/spacing)
+    q = around(array/spacing)
     return q * spacing
 
 
@@ -49,10 +47,10 @@ def make_dataframes(score_data, edo=12):
     phases['f6 Phase'] = [180 if x < -179 else x for x in phases['f6 Phase']]
     quantized_phases = {f'f{i} Quantized Phase' : [quantize_array(a.phase_dict()[f'f{i}'], quant=edo) for a in score_data] for i in range(1, edo//2 +1)}
     quantized_phases['f6 Quantized Phase'] = [180 if x < -179 else x for x in quantized_phases['f6 Quantized Phase']]
-    magnitudes = {f'f{i} Magnitude' : [np.around(a.mag_dict()[f'f{i}'], decimals=2) for a in score_data] for i in range(0, edo//2 + 1)}
+    magnitudes = {f'f{i} Magnitude' : [around(a.mag_dict()[f'f{i}'], decimals=2) for a in score_data] for i in range(0, edo//2 + 1)}
 
     master_dict = {**general_info, **phases, **quantized_phases, **magnitudes}
 
-    master_df = pd.DataFrame(master_dict)
+    master_df = DataFrame(master_dict)
     
     return master_df

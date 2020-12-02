@@ -10,7 +10,8 @@ import tkinter as tk
 from tkinter import ttk
 
 from pandastable import Table, TableModel
-import pandas as pd
+# import pandas as pd
+from pandas import DataFrame, set_option
 
 from Corpus import corpus_list
 from CalculationFunctions import score_to_data
@@ -277,7 +278,7 @@ class DataPage(tk.Frame):
             
         
     def make_empty_dataframe(self):
-        empty_df = pd.DataFrame({})
+        empty_df = DataFrame({})
         frame = tk.Frame(self)
         frame.grid(row=6, column=0, sticky="we", columnspan=7)
         pt = Table(frame, showtoolbar=True, showstatusbar=True, dataframe=empty_df)
@@ -298,7 +299,7 @@ class DataPage(tk.Frame):
         if self.var == 0:
             for i in range(0, 12 // 2 + 1):
                 df[f'| f{i} |'] = master_df[f'f{i} Magnitude']
-            pd.set_option('display.max_colwidth', 40)
+            set_option('display.max_colwidth', 40)
             
         else:
             i = self.var
@@ -315,7 +316,7 @@ class MasterDataFrame(tk.Frame):
         self.make_empty_dataframe()
         
     def make_empty_dataframe(self):
-        empty_df = pd.DataFrame({})
+        empty_df = DataFrame({})
         frame = tk.Frame(self)
         frame.grid(row=5, column=0, sticky="nswe", columnspan=9)
         pt = Table(frame, showtoolbar=True, showstatusbar=True, dataframe=empty_df)

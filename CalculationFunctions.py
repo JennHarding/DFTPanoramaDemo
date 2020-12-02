@@ -1,6 +1,6 @@
 
 from music21 import stream, note, pitch, chord, meter
-import numpy as np
+from numpy import array
 
 import Corpus
 from dftArrayClass import dft_array
@@ -88,7 +88,7 @@ def sliding_window(score, beat_offset_list, window_size, strategy, log=True, edo
     all_arrays = []
     for idx, window_begin in enumerate(beat_offset_list[:-window_size]):
         window_end = beat_offset_list[idx + window_size]
-        current_array = np.array([0.0]*edo)
+        current_array = array([0.0]*edo)
         measure1 = get_measure_number(score=score, offset=window_begin)
         
         if window_end == beat_offset_list[-1]:
